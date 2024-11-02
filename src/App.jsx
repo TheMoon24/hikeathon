@@ -3,9 +3,12 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import MapComponent from './map_component'
-
+import LandmarkMenu from './landmark_slider'
 function App() {
   const [count, setCount] = useState(0)
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <>
@@ -18,7 +21,17 @@ function App() {
         </a>
       </div>
       <h1>Viteee + React</h1>
+      <div>
+      <button onClick={openModal}>
+        Open Landmark Slider
+      </button>
+
+      {/* Modal with the landmark slider */}
+        <LandmarkMenu />
+{/* implement modal which opens the landmark adder */}
+      {/* Your map would go here */}
       <MapComponent />
+    </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 100)}>
           count is {count}

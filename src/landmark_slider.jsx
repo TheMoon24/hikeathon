@@ -36,6 +36,18 @@ const LandmarkMenu = () => {
   );
 };
 
+const Modal = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div style={styles.overlay}>
+      <div style={styles.modal}>
+        <button onClick={onClose} style={styles.closeButton}>X</button>
+        {children}
+      </div>
+    </div>
+  );
+};
 // Inline CSS for simplicity and responsiveness
 const styles = {
   container: {
@@ -117,18 +129,8 @@ const styles = {
     border: 'none',
     fontSize: '1.5em',
     cursor: 'pointer',
-  }
+}
 };
-const Modal = ({ isOpen, onClose, children }) => {
-  if (!isOpen) return null;
 
-  return (
-    <div style={styles.overlay}>
-      <div style={styles.modal}>
-        <button onClick={onClose} style={styles.closeButton}>X</button>
-        {children}
-      </div>
-    </div>
-  );
-};
+
 export default LandmarkMenu;
