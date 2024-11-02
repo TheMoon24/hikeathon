@@ -1,33 +1,70 @@
 // src/map_component.jsx
-import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import React, { useState, useRef, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMapEvent, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { map } from 'leaflet';
 
-function MapComponent() {
+function SetViewOnClick({ animateRef }) {
+  
+
+  const map = useMapEvent('click', (e) => {
+    map.setView(e.latlng, map.getZoom(), {
+      animate: true,
+    })
+  })
+
+  return null
+}
+// function updateMapCenter(lat, long) {
+//   const mapRef = useMap()
+//   console.log('Updating Map Center:', lat, long);
+//   mapRef.current.setView([lat, long], mapRef.current.getZoom());
+// }
+function updateMapCenter({ lat, long }) {
+  const map = useMap();
+  useEffect(() => {
+    if (lat && long) {
+      map.setView([lat, long], map.getZoom());
+    }
+  }, [lat, long, map]);
+  return null;
+}
+
+function MapComponent({position, zones, landmarks}) {
+  // const mapRef = useMap()
   const [markers, setMarkers] = useState([
-    { id: 1, position: [51.505, -0.09], message: "Default Marker" },
+    { id: 1, position: [position.longitude ? position.longitude : 0, position.latitude ? position.latitude:0], message: "Default Marker" },
   ]);
 
-  function AddMarkerOnClick() {
-    useMapEvents({
-      click(e) {
-        const newMarker = {
-          id: markers.length + 1,
-          position: [e.latlng.lat, e.latlng.lng],
-          message: `Marker ${markers.length + 1}`,
-        };
+  useEffect(() => {
+    if (position.latitude && position.longitude) {
+      console.log('Updating Marker:', position.latitude, position.longitude);
+      setMarkers([{ id: 1, position: [position.latitude, position.longitude], message: "Current Location" }]);
+    }
+  }, [position]);
   
-        // Log the coordinates of the new marker
-        console.log('New Marker Coordinates:', newMarker.position);
+
+  // function AddMarkerOnClick() {
+  //   useMapEvents({
+  //     click(e) {
+  //       const newMarker = {
+  //         id: markers.length + 1,
+  //         position: [e.latlng.lat, e.latlng.lng],
+  //         message: `Marker ${markers.length + 1}`,
+  //       };
   
-        setMarkers([...markers, newMarker]);
-      },
-    });
-    return null; // This component doesn't render anything directly
-  }
+  //       // Log the coordinates of the new marker
+  //       console.log('New Marker Coordinates:', newMarker.position);
+  
+  //       setMarkers([...markers, newMarker]);
+  //     },
+  //   });
+  //   return null; // This component doesn't render anything directly
+  // }
   
 
   return (
+    <>
     <MapContainer 
       center={[51.505, -0.09]} 
       zoom={13} 
@@ -43,8 +80,12 @@ function MapComponent() {
           <Popup>{marker.message}</Popup>
         </Marker>
       ))}
-      <AddMarkerOnClick />
+      {/* <AddMarkerOnClick /> */}
+        <SetViewOnClick />
+      
     </MapContainer>
+      <button onClick={() => { updateMapCenter(57, -1.2) }}>Locate</button>x
+    </>
   );
 }
 

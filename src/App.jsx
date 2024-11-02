@@ -31,7 +31,8 @@ function App() {
         </a>
       </div>
       <h1>Viteee + React</h1>
-      <MapComponent />
+      <MapComponent position={coords} zones={[(52, -1.5, 3, "Test zone")]} landmarks={[(52.001, -1.5, 1, "Test landmark")]} />
+      
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
