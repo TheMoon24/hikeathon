@@ -29,6 +29,8 @@ function App() {
       <Add_landmark style={{ marginRight: '20px' }} /> {/* Adjust margin to space between buttons */}
       <ZoneButton />
       </div>
+      <h1>Viteee + React</h1>
+      <MapComponent position={coords} zones={[(52, -1.5, 3, "Test zone")]} landmarks={[(52.001, -1.5, 1, "Test landmark")]} />
       <div className="card">
         <button onClick={() => setCount((count) => count + 100)}>
           count is {count}
