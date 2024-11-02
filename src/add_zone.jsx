@@ -7,7 +7,7 @@ function ZoneButton() {
 
     const buttonStyle = {
         padding: '10px 20px',
-        backgroundColor: '#4CAF50', // Green background
+        backgroundColor: '#D470A2', // Green background
         color: 'white', // White text
         border: 'none',
         borderRadius: '5px',
@@ -17,7 +17,7 @@ function ZoneButton() {
     };
 
     const buttonHoverStyle = {
-        backgroundColor: '#45a049', // Darker green on hover
+        backgroundColor: '#A94064', // Darker green on hover
     };
 
     return (

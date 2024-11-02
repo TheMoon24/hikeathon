@@ -29,14 +29,6 @@ function App() {
       <Add_landmark style={{ marginRight: '20px' }} /> {/* Adjust margin to space between buttons */}
       <ZoneButton />
       </div>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 100)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test like this??????
-        </p>
-      </div>
       <p className="read-the-docs">
         dont do that
       </p>
