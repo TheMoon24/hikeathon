@@ -20,15 +20,15 @@ function App() {
       <h1>Viteee + React</h1>
       <MapComponent />
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() => setCount((count) => count + 100)}>
           count is {count}
         </button>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Edit <code>src/App.jsx</code> and save to test like this??????
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        dont do that
       </p>
     </>
   )
