@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import MapComponent from './map_component'
 import Position  from './position'
+import Hikeathon from './assets/hikeathon.png'
+import Add_landmark from './add_landmark.jsx'
+import ZoneButton from './add_zone.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,16 +23,12 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <img src={Hikeathon} className="Hikeathon" alt="Hikeathon" style={{ marginBottom: '20px' }} />
+      <MapComponent style={{ marginBottom: '40px' }}/>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
+      <Add_landmark style={{ marginRight: '20px' }} /> {/* Adjust margin to space between buttons */}
+      <ZoneButton />
       </div>
-      <h1>Viteee + React</h1>
-      <MapComponent />
       <div className="card">
         <button onClick={() => setCount((count) => count + 100)}>
           count is {count}
