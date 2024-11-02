@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import MapComponent from './map_component'
+import LandmarkMenu from './landmark_slider'
 import Position  from './position'
 import Hikeathon from './assets/hikeathon.png'
 import Add_landmark from './add_landmark.jsx'
@@ -21,6 +22,9 @@ function App() {
       });
   }, []);
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <>
       <img src={Hikeathon} className="Hikeathon" alt="Hikeathon" style={{ marginBottom: '20px' }} />
@@ -30,7 +34,17 @@ function App() {
       <ZoneButton />
       </div>
       <h1>Viteee + React</h1>
+      <div>
+      <button onClick={openModal}>
+        Open Landmark Slider
+      </button>
+
+      {/* Modal with the landmark slider */}
+        <LandmarkMenu />
+{/* implement modal which opens the landmark adder */}
+      {/* Your map would go here */}
       <MapComponent position={coords} zones={[(52, -1.5, 3, "Test zone")]} landmarks={[(52.001, -1.5, 1, "Test landmark")]} />
+    </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 100)}>
           count is {count}
