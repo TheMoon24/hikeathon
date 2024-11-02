@@ -26,7 +26,7 @@ function MapComponent({ position, zones, landmarks }) {
 
 
   function AddMarkerOnClick() {
-    useMapEvents({
+    useMapEvent({
       click(e) {
         const newMarker = {
           id: markers.length + 1,
@@ -89,6 +89,7 @@ function MapComponent({ position, zones, landmarks }) {
 
         <SetViewOnClick />
       <button onClick={() => updateMapCenter(57, -1.2)}>Locate</button>
+      </MapContainer>
     </div>
   );
 }
