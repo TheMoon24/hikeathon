@@ -28,42 +28,14 @@ function App() {
   return (
     <>
       <img src={Hikeathon} className="Hikeathon" alt="Hikeathon" style={{ marginBottom: '20px' }} />
-      <MapComponent style={{ marginBottom: '40px' }}/>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
-      <Add_landmark style={{ marginRight: '20px' }} /> {/* Adjust margin to space between buttons */}
-      <ZoneButton />
-      </div>
-      <h1>Viteee + React</h1>
-      <div>
       <button onClick={openModal}>
         Open Landmark Slider
       </button>
-
-      {/* Modal with the landmark slider */}
-        <LandmarkMenu />
-{/* implement modal which opens the landmark adder */}
-      {/* Your map would go here */}
-      <MapComponent position={coords} zones={[(52, -1.5, 3, "Test zone")]} landmarks={[(52.001, -1.5, 1, "Test landmark")]} />
-    </div>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 100)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test like this??????
-        </p>
-      </div>
-      <p className="read-the-docs">
-        dont do that
-      </p>
-      <div>
-        <h1>Position Coordinates</h1>
-        {(
-          <div>
-            <p>Latitude: {coords.latitude}</p>
-            <p>Longitude: {coords.longitude}</p>
-          </div>
-        )}
+      <LandmarkMenu />
+      <MapComponent position={coords} zones={[(52, -1.5, 3, "Test zone")]} landmarks={[(52.001, -1.5, 1, "Test landmark")]}  style={{ marginBottom: '40px' }}/>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
+      <Add_landmark style={{ marginRight: '20px' }} /> {/* Adjust margin to space between buttons */}
+      <ZoneButton />
       </div>
     </>
   )
