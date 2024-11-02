@@ -1,11 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import MapComponent from './map_component'
+import Position  from './position'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [coords, setCoords] = useState({ latitude: null, longitude: null, error: null });
+  const position = new Position();
+
+  useEffect(() => {
+    position.getCoords()
+      .then(({ latitude, longitude }) => {
+        setCoords({ latitude, longitude, error: null });
+      })
+      .catch((error) => {
+        setCoords({ latitude: null, longitude: null, error });
+      });
+  }, []);
 
   return (
     <>
@@ -30,6 +43,15 @@ function App() {
       <p className="read-the-docs">
         dont do that
       </p>
+      <div>
+        <h1>Position Coordinates</h1>
+        {(
+          <div>
+            <p>Latitude: {coords.latitude}</p>
+            <p>Longitude: {coords.longitude}</p>
+          </div>
+        )}
+      </div>
     </>
   )
 }
