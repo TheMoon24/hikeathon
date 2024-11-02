@@ -24,6 +24,26 @@ function MapComponent({ position, zones, landmarks }) {
     },
   ]);
 
+
+  function AddMarkerOnClick() {
+    useMapEvents({
+      click(e) {
+        const newMarker = {
+          id: markers.length + 1,
+          position: [e.latlng.lat, e.latlng.lng],
+          message: `Marker ${markers.length + 1}`, // Corrected string template
+        };
+  
+        // Log the coordinates of the new marker
+        console.log('New Marker Coordinates:', newMarker.position);
+  
+        setMarkers([...markers, newMarker]);
+      },
+    });
+    return null; // This component doesn't render anything directly
+  }
+
+
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -47,31 +67,29 @@ function MapComponent({ position, zones, landmarks }) {
   };
 
   return (
-    <>
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
-        style={{ height: '80vh', width: '100%' }}
-        whenCreated={(mapInstance) => {
-          console.log('Map Created', mapInstance);
-          mapRef.current = mapInstance;
-        }}
+    <div style={{ border: '2px solid white', borderRadius: '8px', overflow: 'hidden', margin: '20px' }}>
+      <MapContainer 
+        center={[51.505, -0.09]} 
+        zoom={13} 
+        style={{ height: "80vh", width: "100%", boxSizing: 'border-box' }} // Use box-sizing
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution="&copy; OpenStreetMap contributors"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        {markers.map((marker) => (
+        {markers.map(marker => (
+
           <Marker key={marker.id} position={marker.position}>
             <Popup>{marker.message}</Popup>
           </Marker>
         ))}
 
+        <AddMarkerOnClick />
+
         <SetViewOnClick />
-      </MapContainer>
       <button onClick={() => updateMapCenter(57, -1.2)}>Locate</button>
-    </>
+    </div>
   );
 }
 
