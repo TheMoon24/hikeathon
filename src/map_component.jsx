@@ -1,12 +1,7 @@
 // src/map_component.jsx
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Circle, Popup, useMapEvents } from 'react-leaflet';
 import LandmarkMenu from './landmark_slider'; // Import the LandmarkMenu component
-=======
-import React, { useState, useRef, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
->>>>>>> 62c3f5f4d5f3309738de1c00ca35b5472e817109
 import 'leaflet/dist/leaflet.css';
 
 function SetViewOnClick() {
@@ -20,10 +15,6 @@ function SetViewOnClick() {
 
 function MapComponent({ position, zones, landmarks }) {
   const [markers, setMarkers] = useState([
-<<<<<<< HEAD
-    { id: 1, position: [51.505, -0.09], message: "Default Marker", radius: 100 },
-=======
-    {
       id: 1,
       position: [
         position.latitude ? position.latitude : 0,
@@ -31,15 +22,9 @@ function MapComponent({ position, zones, landmarks }) {
       ],
       message: 'Default Marker',
     },
->>>>>>> 62c3f5f4d5f3309738de1c00ca35b5472e817109
   ]);
   const [isLandmarkMode, setIsLandmarkMode] = useState(false); // Control landmark mode
   const [selectedMarker, setSelectedMarker] = useState(null); // Track the selected marker for editing
-
-  // Toggle landmark mode on button click
-  const toggleLandmarkMode = () => setIsLandmarkMode(!isLandmarkMode);
-
-<<<<<<< HEAD
   function AddMarkerOnClick() {
     useMapEvents({
       click(e) {
@@ -124,9 +109,24 @@ function MapComponent({ position, zones, landmarks }) {
         </div>
       )}
     </div>
-=======
+  function AddMarkerOnClick() {
+    useMapEvent({
+      click(e) {
+        const newMarker = {
+          id: markers.length + 1,
+          position: [e.latlng.lat, e.latlng.lng],
+          message: `Marker ${markers.length + 1}`, // Corrected string template
+        };
+  
+        // Log the coordinates of the new marker
+        console.log('New Marker Coordinates:', newMarker.position);
+  
+        setMarkers([...markers, newMarker]);
+      },
+    });
+    return null; // This component doesn't render anything directly
+  }
   const mapRef = useRef(null);
-
   useEffect(() => {
     if (position.latitude && position.longitude) {
       console.log('Updating Marker:', position.latitude, position.longitude);
@@ -148,32 +148,30 @@ function MapComponent({ position, zones, landmarks }) {
   };
 
   return (
-    <>
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
-        style={{ height: '80vh', width: '100%' }}
-        whenCreated={(mapInstance) => {
-          console.log('Map Created', mapInstance);
-          mapRef.current = mapInstance;
-        }}
+    <div style={{ border: '2px solid white', borderRadius: '8px', overflow: 'hidden', margin: '20px' }}>
+      <MapContainer 
+        center={[51.505, -0.09]} 
+        zoom={13} 
+        style={{ height: "80vh", width: "100%", boxSizing: 'border-box' }} // Use box-sizing
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution="&copy; OpenStreetMap contributors"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
 
-        {markers.map((marker) => (
+        {markers.map(marker => (
+
           <Marker key={marker.id} position={marker.position}>
             <Popup>{marker.message}</Popup>
           </Marker>
         ))}
 
+        <AddMarkerOnClick />
+
         <SetViewOnClick />
-      </MapContainer>
       <button onClick={() => updateMapCenter(57, -1.2)}>Locate</button>
-    </>
->>>>>>> 62c3f5f4d5f3309738de1c00ca35b5472e817109
+      </MapContainer>
+    </div>
   );
 }
 
