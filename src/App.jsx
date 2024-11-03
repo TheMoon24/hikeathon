@@ -4,7 +4,6 @@ import MapComponent from './map_component';
 import LandmarkMenu from './landmark_slider';
 import Position from './position';
 import Hikeathon from './assets/hikeathon.png';
-import AddLandmark from './add_landmark.jsx';
 //import ZoneButton from './add_zone.jsx';
 import Badges from './Badges'
 
@@ -36,10 +35,10 @@ function App() {
           Map
         </button>
         <button onClick={() => setActiveTab('landmarks')} className={activeTab === 'landmarks' ? 'active' : ''}>
-          Landmarks
+          Landmarks Nearby
         </button>
         <button onClick={() => setActiveTab('badges')} className={activeTab === 'badges' ? 'active' : ''}>
-          Zones
+          Badges
         </button>
       </div>
 
@@ -47,9 +46,6 @@ function App() {
       <div className="tab-content">
         {activeTab === 'map' && (
           <>
-            <button onClick={openModal}>
-              Open Landmark Slider
-            </button>
             <MapComponent
               position={coords}
               zones={[(52, -1.5, 3, "Test zone")]}
@@ -61,11 +57,10 @@ function App() {
 
         {activeTab === 'landmarks' && (
           <>
-            <LandmarkMenu />
-            <AddLandmark style={{ marginRight: '20px' }} />
+          <h3 style={{ marginTop: '20px' ,color:'white'}}>Landmark: TLC</h3>
+          <p style={{color:'white'}}>This is a study space for students at Durham University!</p>
           </>
         )}
-
         {activeTab === 'badges' && (
           <>
             <Badges />
