@@ -6,6 +6,7 @@ import Position  from './position'
 import Hikeathon from './assets/hikeathon.png'
 import Add_landmark from './add_landmark.jsx'
 import ZoneButton from './add_zone.jsx'
+import ZoneLogic from './ZoneLogic.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -36,6 +37,7 @@ function App() {
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
       <Add_landmark style={{ marginRight: '20px' }} /> {/* Adjust margin to space between buttons */}
       <ZoneButton />
+        <ZoneLogic userPosition={coords} zoneCenter={{ lat: 54.767325746073, lon: - 1.5762209513752836 }} radius={3} />
       </div>
     </>
   )
