@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 
 const circleColors = ['blue', 'green', 'red', 'purple', 'orange'];
 
-function MapComponent({ position, zones, landmarks, name }) {
+function MapComponent({ position, zones, landmarks }) {
   const [markers, setMarkers] = useState([]);
   const [isLandmarkMode, setIsLandmarkMode] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -20,7 +20,7 @@ function MapComponent({ position, zones, landmarks, name }) {
           const newMarker = {
             id: markers.length + 1,
             position: [e.latlng.lat, e.latlng.lng],
-            message: `Landmark ${name}`,
+            message: `Landmark ${markers.length + 1}`,
             radius: 100,
             color: circleColors[colorIndex % circleColors.length]
           };
