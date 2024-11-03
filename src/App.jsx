@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import MapComponent from './map_component'
-import LandmarkMenu from './landmark_slider'
-import Position  from './position'
-import Hikeathon from './assets/hikeathon.png'
-import Add_landmark from './add_landmark.jsx'
-import ZoneButton from './add_zone.jsx'
+import { useEffect, useState } from 'react';
+import './App.css';
+import MapComponent from './map_component';
+import LandmarkMenu from './landmark_slider';
+import Position from './position';
+import Hikeathon from './assets/hikeathon.png';
+//import ZoneButton from './add_zone.jsx';
+import Badges from './Badges'
+import Fetchdata from './fetchData';
 import ZoneLogic from './ZoneLogic.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
   const [coords, setCoords] = useState({ latitude: null, longitude: null, error: null });
+  const [activeTab, setActiveTab] = useState('map'); // New state for active tab
   const position = new Position();
 
   useEffect(() => {
@@ -27,20 +28,50 @@ function App() {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <>
+    <div className="App">
       <img src={Hikeathon} className="Hikeathon" alt="Hikeathon" style={{ marginBottom: '20px' }} />
-      <button onClick={openModal}>
-        Open Landmark Slider
-      </button>
-      <LandmarkMenu />
-      <MapComponent position={coords} zones={[(52, -1.5, 3, "Test zone")]} landmarks={[(52.001, -1.5, 1, "Test landmark")]}  style={{ marginBottom: '40px' }}/>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '40px' }}>
-      <Add_landmark style={{ marginRight: '20px' }} /> {/* Adjust margin to space between buttons */}
-      <ZoneButton />
+
+      {/* Tab Navigation */}
+      <div className="tabs">
+        <button onClick={() => setActiveTab('map')} className={activeTab === 'map' ? 'active' : ''}>
+          Map
+        </button>
+        <button onClick={() => setActiveTab('landmarks')} className={activeTab === 'landmarks' ? 'active' : ''}>
+          Landmarks Nearby
+        </button>
+        <button onClick={() => setActiveTab('badges')} className={activeTab === 'badges' ? 'active' : ''}>
+          Badges
+        </button>
         <ZoneLogic userPosition={coords} zoneCenter={{ lat: 54.767325746073, lon: - 1.5762209513752836 }} radius={3} />
       </div>
-    </>
-  )
+
+      {/* Tab Content */}
+      <div className="tab-content">
+        {activeTab === 'map' && (
+          <>
+            <MapComponent
+              position={coords}
+              zones={[(52, -1.5, 3, "Test zone")]}
+              landmarks={[(52.001, -1.5, 1, "Test landmark")]}
+              style={{ marginBottom: '40px' }}
+            />
+          </>
+        )}
+
+        {activeTab === 'landmarks' && (
+          <>
+          <h3 style={{ marginTop: '20px' ,color:'white'}}>Landmark: TLC</h3>
+          <p style={{color:'white'}}>This is a study space for students at Durham University!</p>
+          </>
+        )}
+        {activeTab === 'badges' && (
+          <>
+            <Badges />
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
