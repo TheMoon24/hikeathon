@@ -1,1 +1,1 @@
-import geodesic
+from flask_cors import CORS
