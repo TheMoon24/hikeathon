@@ -1,12 +1,37 @@
 // src/map_component.jsx
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Circle, Popup, useMapEvents } from 'react-leaflet';
 import LandmarkMenu from './landmark_slider'; // Import the LandmarkMenu component
+=======
+import React, { useState, useRef, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
+>>>>>>> 62c3f5f4d5f3309738de1c00ca35b5472e817109
 import 'leaflet/dist/leaflet.css';
 
-function MapComponent() {
+function SetViewOnClick() {
+  const mapInstance = useMapEvent('click', (e) => {
+    mapInstance.setView(e.latlng, mapInstance.getZoom(), {
+      animate: true,
+    });
+  });
+  return null;
+}
+
+function MapComponent({ position, zones, landmarks }) {
   const [markers, setMarkers] = useState([
+<<<<<<< HEAD
     { id: 1, position: [51.505, -0.09], message: "Default Marker", radius: 100 },
+=======
+    {
+      id: 1,
+      position: [
+        position.latitude ? position.latitude : 0,
+        position.longitude ? position.longitude : 0,
+      ],
+      message: 'Default Marker',
+    },
+>>>>>>> 62c3f5f4d5f3309738de1c00ca35b5472e817109
   ]);
   const [isLandmarkMode, setIsLandmarkMode] = useState(false); // Control landmark mode
   const [selectedMarker, setSelectedMarker] = useState(null); // Track the selected marker for editing
@@ -14,6 +39,7 @@ function MapComponent() {
   // Toggle landmark mode on button click
   const toggleLandmarkMode = () => setIsLandmarkMode(!isLandmarkMode);
 
+<<<<<<< HEAD
   function AddMarkerOnClick() {
     useMapEvents({
       click(e) {
@@ -98,6 +124,56 @@ function MapComponent() {
         </div>
       )}
     </div>
+=======
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    if (position.latitude && position.longitude) {
+      console.log('Updating Marker:', position.latitude, position.longitude);
+      setMarkers([
+        {
+          id: 1,
+          position: [position.latitude, position.longitude],
+          message: 'Current Location',
+        },
+      ]);
+    }
+  }, [position]);
+
+  const updateMapCenter = (lat, lng) => {
+    console.log('move', mapRef.current);
+    if (mapRef.current) {
+      mapRef.current.setView([lat, lng], mapRef.current.getZoom());
+    }
+  };
+
+  return (
+    <>
+      <MapContainer
+        center={[51.505, -0.09]}
+        zoom={13}
+        style={{ height: '80vh', width: '100%' }}
+        whenCreated={(mapInstance) => {
+          console.log('Map Created', mapInstance);
+          mapRef.current = mapInstance;
+        }}
+      >
+        <TileLayer
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+          attribution="&copy; OpenStreetMap contributors"
+        />
+
+        {markers.map((marker) => (
+          <Marker key={marker.id} position={marker.position}>
+            <Popup>{marker.message}</Popup>
+          </Marker>
+        ))}
+
+        <SetViewOnClick />
+      </MapContainer>
+      <button onClick={() => updateMapCenter(57, -1.2)}>Locate</button>
+    </>
+>>>>>>> 62c3f5f4d5f3309738de1c00ca35b5472e817109
   );
 }
 
