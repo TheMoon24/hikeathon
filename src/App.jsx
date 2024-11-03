@@ -6,6 +6,7 @@ import Position from './position';
 import Hikeathon from './assets/hikeathon.png';
 //import ZoneButton from './add_zone.jsx';
 import Badges from './Badges'
+import Fetchdata from './fetchData';
 
 function App() {
   const [coords, setCoords] = useState({ latitude: null, longitude: null, error: null });
